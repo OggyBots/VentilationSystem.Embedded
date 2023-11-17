@@ -1,20 +1,27 @@
+#define FOUNDATION_TARGET_PLATFORM_INCLUDE_ARDUINO 1
+
 #include <Arduino.h>
+#include "Foundation/Foundation.hpp"
+
+
+using Foundation::PinArduino;
+
+PinArduino ledPin(LED_BUILTIN);
+PinArduino analogPin(PIN_A0);
+
 
 void setup() {
-    pinMode(LED_BUILTIN, OUTPUT);
+    ledPin.PinMode(Foundation::GpioDirection::Output);
     Serial.begin(9600);
 }
 
 void loop() {
-    int sensorValue = 0;
 
-    digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+    ledPin.DigitalWrite(Foundation::High);
     delay(2000);
-    sensorValue = analogRead(A0);
-    Serial.println(sensorValue);
+    Serial.println(analogPin.AnalogRead());
 
-    digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+    ledPin.DigitalWrite(Foundation::Low);
     delay(1000);
-    sensorValue = analogRead(A0);
-    Serial.println(sensorValue);
+    Serial.println(analogPin.AnalogRead());
 }
